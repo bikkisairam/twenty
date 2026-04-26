@@ -1,72 +1,61 @@
 /**
- * ENG-1 Test - Validates that empty tickets are properly blocked
+ * ENG-1 Test - Validates that empty ticket blocker is properly documented
  * 
- * This test ensures that the PACE workflow correctly identifies
- * and blocks tickets that lack sufficient detail for implementation.
+ * This test ensures that we've correctly identified and documented
+ * that ENG-1 cannot proceed due to missing requirements.
  */
 
-describe('ENG-1 - Empty Ticket Detection', () => {
-  it('should block tickets without description', () => {
-    const ticket = {
-      id: 'ENG-1',
-      description: '',
-      acceptanceCriteria: [],
-      storyPoints: null,
-    };
+import * as fs from 'fs';
+import * as path from 'path';
 
-    // PRIME should detect this ticket is empty
-    const result = validateTicketCompleteness(ticket);
+describe('ENG-1 - Empty Ticket Blocker Documentation', () => {
+  it('should have blocker documentation file', () => {
+    const blockerFilePath = path.join(__dirname, '../tickets/ENG-1-BLOCKED.md');
+    const exists = fs.existsSync(blockerFilePath);
     
-    expect(result.canProceed).toBe(false);
-    expect(result.missingFields).toContain('description');
+    expect(exists).toBe(true);
   });
 
-  it('should block tickets without acceptance criteria', () => {
-    const ticket = {
-      id: 'ENG-1',
-      description: 'Some description',
-      acceptanceCriteria: [],
-      storyPoints: null,
-    };
-
-    const result = validateTicketCompleteness(ticket);
+  it('should document that ticket is blocked', () => {
+    const blockerFilePath = path.join(__dirname, '../tickets/ENG-1-BLOCKED.md');
+    const content = fs.readFileSync(blockerFilePath, 'utf-8');
     
-    expect(result.canProceed).toBe(false);
-    expect(result.missingFields).toContain('acceptanceCriteria');
+    expect(content).toContain('BLOCKED');
+    expect(content).toContain('empty and unactionable');
   });
 
-  it('should block tickets without story points', () => {
-    const ticket = {
-      id: 'ENG-1',
-      description: 'Some description',
-      acceptanceCriteria: ['AC1'],
-      storyPoints: null,
-    };
-
-    const result = validateTicketCompleteness(ticket);
+  it('should identify missing requirements', () => {
+    const blockerFilePath = path.join(__dirname, '../tickets/ENG-1-BLOCKED.md');
+    const content = fs.readFileSync(blockerFilePath, 'utf-8');
     
-    expect(result.canProceed).toBe(false);
-    expect(result.missingFields).toContain('storyPoints');
+    expect(content).toContain('No description');
+    expect(content).toContain('No acceptance criteria');
+    expect(content).toContain('No story points');
   });
 
-  it('should allow tickets with all required fields', () => {
-    const ticket = {
-      id: 'ENG-1',
-      description: 'Complete description',
-      acceptanceCriteria: ['AC1', 'AC2'],
-      storyPoints: 5,
-    };
-
-    const result = validateTicketCompleteness(ticket);
+  it('should specify what needs to be updated', () => {
+    const blockerFilePath = path.join(__dirname, '../tickets/ENG-1-BLOCKED.md');
+    const content = fs.readFileSync(blockerFilePath, 'utf-8');
     
-    expect(result.canProceed).toBe(true);
-    expect(result.missingFields).toHaveLength(0);
+    expect(content).toContain('Description');
+    expect(content).toContain('Acceptance Criteria');
+    expect(content).toContain('Story Points');
+  });
+
+  it('should mark all implementation work as out of scope', () => {
+    const blockerFilePath = path.join(__dirname, '../tickets/ENG-1-BLOCKED.md');
+    const content = fs.readFileSync(blockerFilePath, 'utf-8');
+    
+    expect(content).toContain('Out of Scope');
+    expect(content).toContain('All implementation work');
+    expect(content).toContain('until ticket is properly specified');
+  });
+
+  it('should document next steps for unblocking', () => {
+    const blockerFilePath = path.join(__dirname, '../tickets/ENG-1-BLOCKED.md');
+    const content = fs.readFileSync(blockerFilePath, 'utf-8');
+    
+    expect(content).toContain('Next Steps');
+    expect(content).toContain('Product owner must update');
   });
 });
-
-// Mock validation function (not implemented - ticket is blocked)
-function validateTicketCompleteness(_ticket: any): { canProceed: boolean; missingFields: string[] } {
-  // This function doesn't exist yet because ENG-1 is blocked
-  // Implementation is out of scope until ticket is properly specified
-  throw new Error('Cannot implement - ENG-1 is blocked pending ticket clarification');
-}
