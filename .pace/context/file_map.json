@@ -1,0 +1,236 @@
+{
+  "version": 1,
+  "language": "typescript",
+  "entry_points": {
+    "server": "packages/twenty-server/src/main.ts",
+    "worker": "packages/twenty-server/src/queue-worker/queue-worker.ts",
+    "cli": "packages/twenty-server/src/command/command.ts",
+    "frontend": "packages/twenty-front/src/index.tsx",
+    "sdk": "packages/twenty-sdk/src/sdk/index.ts"
+  },
+  "modules": [
+    {
+      "dir": ".",
+      "purpose": "Monorepo root configuration",
+      "files": [
+        {
+          "path": "package.json",
+          "purpose": "Root package dependencies and workspace definitions",
+          "key_symbols": ["workspaces", "scripts"]
+        },
+        {
+          "path": "nx.json",
+          "purpose": "Nx monorepo configuration, task runners, caching",
+          "key_symbols": ["targetDefaults", "namedInputs"]
+        },
+        {
+          "path": "tsconfig.base.json",
+          "purpose": "Base TypeScript configuration for all packages",
+          "key_symbols": ["compilerOptions"]
+        },
+        {
+          "path": "jest.preset.js",
+          "purpose": "Jest preset configuration for all packages",
+          "key_symbols": []
+        }
+      ]
+    },
+    {
+      "dir": "packages/twenty-server/src",
+      "purpose": "NestJS backend server entrypoint and app configuration",
+      "files": [
+        {
+          "path": "packages/twenty-server/src/main.ts",
+          "purpose": "NestJS application bootstrap, middleware setup, server start",
+          "key_symbols": ["bootstrap"]
+        },
+        {
+          "path": "packages/twenty-server/src/app.module.ts",
+          "purpose": "Root NestJS module, registers all submodules and middleware",
+          "key_symbols": ["AppModule"]
+        },
+        {
+          "path": "packages/twenty-server/src/instrument.ts",
+          "purpose": "OpenTelemetry and Sentry instrumentation initialization",
+          "key_symbols": []
+        },
+        {
+          "path": "packages/twenty-server/package.json",
+          "purpose": "Server package dependencies",
+          "key_symbols": []
+        }
+      ]
+    },
+    {
+      "dir": "packages/twenty-server/src/engine/api",
+      "purpose": "GraphQL and REST API layer",
+      "files": [
+        {
+          "path": "packages/twenty-server/src/engine/api/graphql/core-graphql-api.module.ts",
+          "purpose": "Core GraphQL API module registration",
+          "key_symbols": ["CoreGraphQLApiModule"]
+        },
+        {
+          "path": "packages/twenty-server/src/engine/api/graphql/metadata-graphql-api.module.ts",
+          "purpose": "Metadata GraphQL API module registration",
+          "key_symbols": ["MetadataGraphQLApiModule"]
+        },
+        {
+          "path": "packages/twenty-server/src/engine/api/rest/rest-api.module.ts",
+          "purpose": "REST API module registration",
+          "key_symbols": ["RestApiModule"]
+        },
+        {
+          "path": "packages/twenty-server/src/engine/api/mcp/mcp.module.ts",
+          "purpose": "MCP (Model Context Protocol) API module",
+          "key_symbols": ["McpModule"]
+        }
+      ]
+    },
+    {
+      "dir": "packages/twenty-server/src/engine/core-modules/auth",
+      "purpose": "Authentication and authorization services",
+      "files": [
+        {
+          "path": "packages/twenty-server/src/engine/core-modules/auth/middlewares/workspace-auth-context.middleware.ts",
+          "purpose": "Middleware to load workspace context from JWT",
+          "key_symbols": ["WorkspaceAuthContextMiddleware"]
+        }
+      ]
+    },
+    {
+      "dir": "packages/twenty-server/src/engine/middlewares",
+      "purpose": "Global middleware for request processing",
+      "files": [
+        {
+          "path": "packages/twenty-server/src/engine/middlewares/graphql-hydrate-request-from-token.middleware.ts",
+          "purpose": "Extracts JWT token and hydrates request context",
+          "key_symbols": ["GraphQLHydrateRequestFromTokenMiddleware"]
+        },
+        {
+          "path": "packages/twenty-server/src/engine/middlewares/rest-core.middleware.ts",
+          "purpose": "Core middleware for REST endpoints",
+          "key_symbols": ["RestCoreMiddleware"]
+        }
+      ]
+    },
+    {
+      "dir": "packages/twenty-server/src/engine/twenty-orm",
+      "purpose": "Custom ORM layer on top of TypeORM",
+      "files": [
+        {
+          "path": "packages/twenty-server/src/engine/twenty-orm/twenty-orm.module.ts",
+          "purpose": "TwentyORM module registration",
+          "key_symbols": ["TwentyORMModule"]
+        }
+      ]
+    },
+    {
+      "dir": "packages/twenty-server/src/modules",
+      "purpose": "Business domain modules (messaging, calendar, workflow, etc.)",
+      "files": [
+        {
+          "path": "packages/twenty-server/src/modules/modules.module.ts",
+          "purpose": "Aggregates all domain modules",
+          "key_symbols": ["ModulesModule"]
+        }
+      ]
+    },
+    {
+      "dir": "packages/twenty-server/src/modules/messaging",
+      "purpose": "Email messaging integration (Gmail, Outlook)",
+      "files": []
+    },
+    {
+      "dir": "packages/twenty-server/src/modules/calendar",
+      "purpose": "Calendar integration (Google Calendar, Outlook Calendar)",
+      "files": []
+    },
+    {
+      "dir": "packages/twenty-server/src/modules/workflow",
+      "purpose": "Workflow automation engine (triggers and actions)",
+      "files": []
+    },
+    {
+      "dir": "packages/twenty-server/src/database",
+      "purpose": "Database migrations, seeds, and setup scripts",
+      "files": [
+        {
+          "path": "packages/twenty-server/src/database/pg/set-pg-date-type-parser.ts",
+          "purpose": "PostgreSQL date type parsing configuration",
+          "key_symbols": ["setPgDateTypeParser"]
+        }
+      ]
+    },
+    {
+      "dir": "packages/twenty-server/src/database/clickHouse",
+      "purpose": "ClickHouse migrations and analytics database setup",
+      "files": []
+    },
+    {
+      "dir": "packages/twenty-server/src/queue-worker",
+      "purpose": "BullMQ queue worker for background job processing",
+      "files": [
+        {
+          "path": "packages/twenty-server/src/queue-worker/queue-worker.ts",
+          "purpose": "Queue worker entrypoint",
+          "key_symbols": []
+        }
+      ]
+    },
+    {
+      "dir": "packages/twenty-server/src/command",
+      "purpose": "CLI commands for database migrations and admin tasks",
+      "files": [
+        {
+          "path": "packages/twenty-server/src/command/command.ts",
+          "purpose": "CLI command runner",
+          "key_symbols": []
+        }
+      ]
+    },
+    {
+      "dir": "packages/twenty-front/src",
+      "purpose": "React frontend application root",
+      "files": [
+        {
+          "path": "packages/twenty-front/src/index.tsx",
+          "purpose": "React app entrypoint, renders root App component",
+          "key_symbols": []
+        },
+        {
+          "path": "packages/twenty-front/src/index.css",
+          "purpose": "Global CSS styles",
+          "key_symbols": []
+        },
+        {
+          "path": "packages/twenty-front/package.json",
+          "purpose": "Frontend package dependencies",
+          "key_symbols": []
+        },
+        {
+          "path": "packages/twenty-front/vite.config.ts",
+          "purpose": "Vite build configuration",
+          "key_symbols": []
+        }
+      ]
+    },
+    {
+      "dir": "packages/twenty-front/src/modules/app",
+      "purpose": "Root app component and providers",
+      "files": [
+        {
+          "path": "packages/twenty-front/src/modules/app/components/App.tsx",
+          "purpose": "Root React component with providers (Apollo, Jotai, Router)",
+          "key_symbols": ["App"]
+        }
+      ]
+    },
+    {
+      "dir": "packages/twenty-front/src/modules/object-record",
+      "purpose": "Core object record management (tables, boards, cards, filters)",
+      "files": []
+    },
+    {
+      "dir": "packages/twenty-front/src/modules/object-record/record-table",
+      "purpos
