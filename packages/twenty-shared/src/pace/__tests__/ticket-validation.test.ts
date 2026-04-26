@@ -75,16 +75,3 @@ describe('PACE Ticket Validation', () => {
     });
   });
 });
-
-// Placeholder functions that will be implemented
-function validateTicketDescription(ticket: { description: string }): boolean {
-  throw new Error('Not implemented');
-}
-
-function validateTicketAcceptanceCriteria(ticket: { acceptanceCriteria: string[] }): boolean {
-  throw new Error('Not implemented');
-}
-
-function validateTicket(ticket: { description: string; acceptanceCriteria: string[] }): boolean {
-  throw new Error('Not implemented');
-}
