@@ -1,6 +1,12 @@
 // Test suite for validating PACE ticket requirements
 // This validates that tickets must have proper descriptions and acceptance criteria
 
+import {
+  validateTicketDescription,
+  validateTicketAcceptanceCriteria,
+  validateTicket,
+} from '../ticket-validation';
+
 describe('PACE Ticket Validation', () => {
   describe('ENG-6 Task 4 - Empty Ticket Handling', () => {
     it('should require a ticket description', () => {
