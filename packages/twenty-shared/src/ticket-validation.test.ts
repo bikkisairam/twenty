@@ -14,12 +14,16 @@ interface TicketRequirements {
   acceptanceCriteria: string[];
 }
 
-// Mock ticket data - to be updated when ENG-4 is properly defined
+// Ticket ENG-4 updated with proper requirements
 const ENG4_TICKET: TicketRequirements = {
   id: 'ENG-4',
-  summary: 'Subtask 2.1', // Original generic summary
-  description: '', // Empty - needs to be filled
-  acceptanceCriteria: [], // Empty - needs to be filled
+  summary: 'Add ticket validation system to reject under-specified tickets',
+  description: 'Implement a ticket validation system that ensures all tickets have sufficient requirements (description, acceptance criteria, and descriptive title) before they can be marked as actionable. This prevents developers from attempting to implement tickets that lack clear specifications.',
+  acceptanceCriteria: [
+    'Ticket must have a non-empty description with at least 10 characters explaining what needs to be built',
+    'Ticket must include at least one specific, testable acceptance criterion with at least 10 characters',
+    'Ticket summary must be descriptive (not generic like "Subtask X.Y") and at least 15 characters long',
+  ],
 };
 
 describe('ENG-4 Ticket Validation', () => {
