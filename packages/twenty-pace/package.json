@@ -1,0 +1,21 @@
+{
+  "name": "twenty-pace",
+  "version": "0.2.1",
+  "private": true,
+  "description": "PACE platform - Product Acceleration through Continuous Engineering",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "29.7.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "5.9.2"
+  }
+}
